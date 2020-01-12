@@ -10,6 +10,8 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import {NavLink} from 'react-router-dom'
+import ListIcon from '@material-ui/icons/List';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -22,9 +24,9 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function MainListItems() {
+export default function MainListItems(props) {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
 
     const handleClick = () => {
         setOpen(!open);
@@ -47,12 +49,26 @@ export default function MainListItems() {
             </ListItem>
             <Collapse in={open} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                    <ListItem button className={classes.nested}>
-                        <ListItemIcon>
-                            <AddCircleOutlineIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="Создать новый" />
-                    </ListItem>
+                    <NavLink
+                        to={'/add'}
+                    >
+                        <ListItem button className={props.nested ? classes.nested : null}>
+                            <ListItemIcon>
+                                <AddCircleOutlineIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Создать новый" />
+                        </ListItem>
+                    </NavLink>
+                    <NavLink
+                        to={'/'}
+                    >
+                        <ListItem button className={props.nested ? classes.nested : null}>
+                            <ListItemIcon>
+                                <ListIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Каталог" />
+                        </ListItem>
+                    </NavLink>
                 </List>
             </Collapse>
         </List>

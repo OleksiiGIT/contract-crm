@@ -5,9 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
@@ -16,19 +14,13 @@ import Paper from '@material-ui/core/Paper';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import MainListItems from '../components/listItems';
+import MainListItems from '../components/ListItems';
 import Orders from '../components/Orders';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import {Route, Switch, withRouter} from 'react-router-dom';
+import {Route, Switch, withRouter, Redirect} from 'react-router-dom';
 import Add from './Add';
 import Contract from './Contract';
 
-const drawerWidth = 240;
+const drawerWidth = 25 + 'vh';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -107,17 +99,6 @@ const useStyles = makeStyles(theme => ({
     fixedHeight: {
         height: 240,
     },
-    searchControls: {
-        display: 'flex',
-        flexDirection: 'row',
-        margin: '0 0 30px 30px',
-        width: '50%',
-        justifyContent: 'space-around',
-        alignItems: 'flex-end'
-    },
-    formControl: {
-        minWidth: 200
-    }
 }));
 
 function Dashboard() {
@@ -129,15 +110,16 @@ function Dashboard() {
     const handleDrawerClose = () => {
         setOpen(false);
     };
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+    // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
     let routes = (
         <Switch>
-            <Route path="/" component={Orders}/>
-            <Route path="/add" component={Add}/>
-            <Route path="/contract:id" component={Contract}/>
+            <Route path="/" exact component={Orders} />
+            <Route path="/add" component={Add} />
+            <Route path="/contract:id" component={Contract} />
+            <Redirect to="/" />
         </Switch>
-    )
+    );
 
     return (
         <div className={classes.root}>
@@ -175,39 +157,15 @@ function Dashboard() {
                         <ChevronLeftIcon />
                     </IconButton>
                 </div>
-                <Divider />
-                <List>
-                    <MainListItems/>
-                </List>
+                <MainListItems/>
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
                 <Container maxWidth="lg" className={classes.container}>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12}>
-                            <div className={classes.searchControls}>
-                                <FormControl className={classes.formControl}>
-                                    <InputLabel id="demo-simple-select-label">Критерий поиска</InputLabel>
-                                    <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
-                                    >
-                                        <MenuItem value={10}>Дата подписания</MenuItem>
-                                        <MenuItem value={20}>Контрагент 1</MenuItem>
-                                        <MenuItem value={30}>Контрагент 2</MenuItem>
-                                        <MenuItem value={40}>Срок окончания</MenuItem>
-                                        <MenuItem value={50}>Тип договора</MenuItem>
-                                    </Select>
-                                </FormControl>
-                                <TextField id="standard-basic" label="Что искать?" />
-                                <Button variant="outlined" color="primary" href="#outlined-buttons">
-                                    Поиск
-                                </Button>
-                            </div>
-                            <Paper className={classes.paper}>
-                                {routes}
-                            </Paper>
-                        </Grid>
+                    <Grid>
+                        <Paper className={classes.paper}>
+                            {routes}
+                        </Paper>
                     </Grid>
                 </Container>
             </main>
