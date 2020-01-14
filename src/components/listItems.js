@@ -12,6 +12,7 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import {NavLink} from 'react-router-dom'
 import ListIcon from '@material-ui/icons/List';
+import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -22,6 +23,11 @@ const useStyles = makeStyles(theme => ({
     nested: {
         paddingLeft: theme.spacing(4),
     },
+    simpleLink: {
+        color: '#000',
+        textDecoration: 'none'
+    }
+
 }));
 
 export default function MainListItems(props) {
@@ -40,6 +46,7 @@ export default function MainListItems(props) {
             }
             className={classes.root}
         >
+            <Divider/>
             <ListItem button onClick={handleClick}>
                 <ListItemIcon>
                     <InboxIcon />
@@ -50,23 +57,25 @@ export default function MainListItems(props) {
             <Collapse in={open} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                     <NavLink
-                        to={'/add'}
-                    >
-                        <ListItem button className={props.nested ? classes.nested : null}>
-                            <ListItemIcon>
-                                <AddCircleOutlineIcon/>
-                            </ListItemIcon>
-                            <ListItemText primary="Создать новый" />
-                        </ListItem>
-                    </NavLink>
-                    <NavLink
                         to={'/'}
+                        className={classes.simpleLink}
                     >
                         <ListItem button className={props.nested ? classes.nested : null}>
                             <ListItemIcon>
                                 <ListIcon/>
                             </ListItemIcon>
                             <ListItemText primary="Каталог" />
+                        </ListItem>
+                    </NavLink>
+                    <NavLink
+                        to={'/add'}
+                        className={classes.simpleLink}
+                    >
+                        <ListItem button className={props.nested ? classes.nested : null}>
+                            <ListItemIcon>
+                                <AddCircleOutlineIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Создать новый" />
                         </ListItem>
                     </NavLink>
                 </List>
