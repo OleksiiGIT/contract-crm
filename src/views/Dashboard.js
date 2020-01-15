@@ -13,15 +13,10 @@ import Paper from '@material-ui/core/Paper';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import MainListItems from '../components/ListItems';
-import Orders from '../components/Orders';
-import {Route, Switch, withRouter, Redirect} from 'react-router-dom';
-import Add from './Add';
-import Contract from './Contract';
 import Notice from "../components/Notice";
 
 //const drawerWidth = 25 + 'vh';
 const drawerWidth = 240;
-
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -102,7 +97,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function Dashboard() {
+function Dashboard(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const handleDrawerOpen = () => {
@@ -112,15 +107,6 @@ function Dashboard() {
         setOpen(false);
     };
     // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
-    let routes = (
-        <Switch>
-            <Route path="/" exact component={Orders} />
-            <Route path="/add" component={Add} />
-            <Route path="/contract:id" component={Contract} />
-            <Redirect to="/" />
-        </Switch>
-    );
 
     let noticeMessages = [
         "The contract with contr-agent Amazon will finished in 7 days.",
@@ -167,7 +153,7 @@ function Dashboard() {
                 <Container maxWidth="lg" className={classes.container}>
                     <Grid>
                         <Paper className={classes.paper}>
-                            {routes}
+                            {props.children}
                         </Paper>
                     </Grid>
                 </Container>
@@ -176,4 +162,4 @@ function Dashboard() {
     );
 }
 
-export default withRouter(Dashboard)
+export default Dashboard

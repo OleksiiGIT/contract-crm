@@ -1,9 +1,12 @@
 import React from 'react';
+import AddStepper from "../components/Stepper";
 
 class Add extends React.Component {
     render() {
         return (
-            <h1>Add component</h1>
+            <div>
+                <AddStepper />
+            </div>
         )
     }
 }

@@ -1,0 +1,33 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.documentsIncluded {
+    display: flex;
+    justify-content: space-between;
+}
+
+hr.dividerMargin {
+    margin: 30px 0;
+}
+
+.FormAddContract {
+    display: flex;
+    flex-direction: column;
+}
+
+.FormAddContract .MuiFormControl-root {
+    margin-bottom: 20px;
+}
+
+.FormAddContract .datePickers {
+    display: flex;
+    margin: 20px 0;
+}
+
+.formContractAddNav {
+    display: flex;
+    justify-content: center;
+}

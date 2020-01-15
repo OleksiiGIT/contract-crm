@@ -50,8 +50,12 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function Orders() {
+function Orders(props) {
     const classes = useStyles();
+
+    const handleClick = (id) => {
+        props.history.push(`/contract/${id}`)
+    }
 
     return (
         <React.Fragment>
@@ -68,7 +72,7 @@ export default function Orders() {
                 </TableHead>
                 <TableBody>
                     {rows.map(row => (
-                        <TableRow className={classes.lineSelect} key={row.id}>
+                        <TableRow className={classes.lineSelect} key={row.id} onClick={handleClick.bind(this, row.id)}>
                             <TableCell>{row.date}</TableCell>
                             <TableCell>{row.agent1}</TableCell>
                             <TableCell>{row.agent2}</TableCell>
@@ -86,3 +90,5 @@ export default function Orders() {
         </React.Fragment>
     );
 }
+
+export default Orders

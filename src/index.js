@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from "react-router-dom";
-import Dashboard from "./views/Dashboard";
+import App from "./App";
+import './index.css'
 
 const sp = (
     <BrowserRouter>
-        <Dashboard />
+        <App />
     </BrowserRouter>
 )
 
