@@ -8,6 +8,11 @@ import Typography from '@material-ui/core/Typography';
 import AddFormFields from "./AddFormFields";
 import { getTomorrow } from '../functions'
 import SnackbarMessage from "./SnackbarMessage";
+import FileUpload from "./FileUpload";
+import ConfirmAddForm from "./ConfirmAddForm";
+
+// just do it shorter if possible
+// i'm not sure about this handleSetFormData
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -30,9 +35,9 @@ export default function AddStepper() {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     const [contractData, setContractData] = React.useState({
-        contrAgent1: null,
-        contrAgent2: null,
-        type: null,
+        contrAgent1: '',
+        contrAgent2: '',
+        type: '',
         startDate: new Date(),
         endDate: getTomorrow(),
     });
@@ -41,11 +46,11 @@ export default function AddStepper() {
     const steps = getSteps();
 
     const handleNext = () => {
-        if (!isInvalid()) {
-            setError( checkState() )
+        if (!isInvalid()) { // check every field on empty
+            setError( checkState() ) // put an object with key => true/false
         } else {
             setError(null )
-            setActiveStep(prevActiveStep => prevActiveStep + 1)
+            setActiveStep(prevActiveStep => prevActiveStep + 1) // go to the next step
         }
     };
 
@@ -115,13 +120,14 @@ export default function AddStepper() {
                 return <AddFormFields
                     onChange={handleSetFormData}
                     errors={error}
+                    data={contractData}
                 />;
             case 1:
-                return 'What is an ad group anyways?';
+                return <FileUpload />
             case 2:
-                return 'This is the bit I really care about!';
+                return <ConfirmAddForm />
             default:
-                return 'Unknown stepIndex';
+                return <h1>Something was wrong!!!</h1>;
         }
     };
 

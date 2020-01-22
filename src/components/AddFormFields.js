@@ -10,36 +10,28 @@ import DateFnsUtils
 import { getTomorrow } from "../functions";
 
 const AddFormFields = (props) => {
-    const [selectedDateStart, setSelectedDateStart] = React.useState(new Date());
-    const [selectedDateEnd, setSelectedDateEnd] = React.useState(getTomorrow());
 
-    const handleDateChangeStart = date => {
-        setSelectedDateStart(date);
-        props.onChange(date, "startDate")
-    };
-
-    const handleDateChangeEnd = date => {
-        setSelectedDateEnd(date);
-        props.onChange(date, "endDate")
+    const handleDateChange = (name, date) => {
+        props.onChange(date, name)
     };
 
     const handleChange = (event) => {
         props.onChange(event.target.value, event.target.id)
-    }
+    };
 
     return (
         <div className="FormAddContract">
-            <TextField id="contrAgent1" label="Контр-агент 1" error={props.errors ? props.errors.contrAgent1 : false} onChange={handleChange} />
-            <TextField id="contrAgent2" label="Контр-агент 2" error={props.errors ? props.errors.contrAgent2 : false} onChange={handleChange}/>
-            <TextField id="type" label="Тип договора" error={props.errors ? props.errors.type : false}  onChange={handleChange}/>
+            <TextField id="contrAgent1" label="Контр-агент 1" value={props.data.contrAgent1} error={props.errors ? props.errors.contrAgent1 : false} onChange={handleChange} />
+            <TextField id="contrAgent2" label="Контр-агент 2" value={props.data.contrAgent2} error={props.errors ? props.errors.contrAgent2 : false} onChange={handleChange}/>
+            <TextField id="type" label="Тип договора" value={props.data.type} error={props.errors ? props.errors.type : false}  onChange={handleChange}/>
             <div className="datePickers">
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <Grid container justify="space-around">
                         <KeyboardDatePicker
                             clearable
-                            value={selectedDateStart}
+                            value={props.data.startDate}
                             label="Дата начала договора"
-                            onChange={date => handleDateChangeStart(date)}
+                            onChange={date => handleDateChange("startDate", date)}
                             minDate={new Date()}
                             format="dd/MM/yyyy"
                             error={props.errors ? props.errors.startDate : false}
@@ -48,9 +40,9 @@ const AddFormFields = (props) => {
                     <Grid container justify="space-around">
                         <KeyboardDatePicker
                             clearable
-                            value={selectedDateEnd}
+                            value={props.data.endDate}
                             label="Дата окончания договора"
-                            onChange={date => handleDateChangeEnd(date)}
+                            onChange={date => handleDateChange("endDate", date)}
                             minDate={getTomorrow()}
                             format="dd/MM/yyyy"
                             error={props.errors ? props.errors.endDate : false}
