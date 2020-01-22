@@ -6,6 +6,8 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import AddFormFields from "./AddFormFields";
+import { getTomorrow } from '../functions'
+import SnackbarMessage from "./SnackbarMessage";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -28,18 +30,34 @@ export default function AddStepper() {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     const [contractData, setContractData] = React.useState({
-        contrAgent1: '',
-        contrAgent2: '',
+        contrAgent1: null,
+        contrAgent2: null,
         type: null,
-        startDate: null,
-        endDate: null
+        startDate: new Date(),
+        endDate: getTomorrow(),
     });
+    const [error, setError] = React.useState({});
 
     const steps = getSteps();
 
     const handleNext = () => {
-        console.log(contractData)
-        setActiveStep(prevActiveStep => prevActiveStep + 1);
+        if (!isInvalid()) {
+            setError( checkState() )
+        } else {
+            setError(null )
+            setActiveStep(prevActiveStep => prevActiveStep + 1)
+        }
+    };
+
+    const isInvalid = () => {
+        return Object.keys(contractData).every(key => contractData[key])
+    }
+
+    const checkState = () => {
+        return Object.keys(contractData).reduce((final,item) => ({
+                ...final,
+                [item]: contractData[item] ? false : true
+            }), {});
     };
 
     const handleBack = () => {
@@ -96,6 +114,7 @@ export default function AddStepper() {
             case 0:
                 return <AddFormFields
                     onChange={handleSetFormData}
+                    errors={error}
                 />;
             case 1:
                 return 'What is an ad group anyways?';
@@ -105,6 +124,21 @@ export default function AddStepper() {
                 return 'Unknown stepIndex';
         }
     };
+
+    const handleErrorsClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setError(null);
+    };
+
+    const showAlert = () => {
+        for (let key in error) {
+            return true;
+        }
+        return false;
+    }
 
     return (
         <div className={classes.root}>
@@ -138,6 +172,11 @@ export default function AddStepper() {
                         </div>
                     </div>
                 )}
+                <SnackbarMessage
+                    open={showAlert()}
+                    onClose={handleErrorsClose}
+                    type="error"
+                >Вы заполнили не все поля!</SnackbarMessage>
             </div>
         </div>
     );

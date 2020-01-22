@@ -7,10 +7,11 @@ import {
 import Grid from "@material-ui/core/Grid";
 import DateFnsUtils
     from '@date-io/date-fns';
+import { getTomorrow } from "../functions";
 
 const AddFormFields = (props) => {
-    const [selectedDateStart, setSelectedDateStart] = React.useState();
-    const [selectedDateEnd, setSelectedDateEnd] = React.useState();
+    const [selectedDateStart, setSelectedDateStart] = React.useState(new Date());
+    const [selectedDateEnd, setSelectedDateEnd] = React.useState(getTomorrow());
 
     const handleDateChangeStart = date => {
         setSelectedDateStart(date);
@@ -28,9 +29,9 @@ const AddFormFields = (props) => {
 
     return (
         <div className="FormAddContract">
-            <TextField id="contrAgent1" label="Контр-агент 1" onChange={handleChange} />
-            <TextField id="contrAgent2" label="Контр-агент 2"  onChange={handleChange}/>
-            <TextField id="type" label="Тип договора"  onChange={handleChange}/>
+            <TextField id="contrAgent1" label="Контр-агент 1" error={props.errors ? props.errors.contrAgent1 : false} onChange={handleChange} />
+            <TextField id="contrAgent2" label="Контр-агент 2" error={props.errors ? props.errors.contrAgent2 : false} onChange={handleChange}/>
+            <TextField id="type" label="Тип договора" error={props.errors ? props.errors.type : false}  onChange={handleChange}/>
             <div className="datePickers">
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <Grid container justify="space-around">
@@ -41,6 +42,7 @@ const AddFormFields = (props) => {
                             onChange={date => handleDateChangeStart(date)}
                             minDate={new Date()}
                             format="dd/MM/yyyy"
+                            error={props.errors ? props.errors.startDate : false}
                         />
                     </Grid>
                     <Grid container justify="space-around">
@@ -49,8 +51,9 @@ const AddFormFields = (props) => {
                             value={selectedDateEnd}
                             label="Дата окончания договора"
                             onChange={date => handleDateChangeEnd(date)}
-                            minDate={new Date()}
+                            minDate={getTomorrow()}
                             format="dd/MM/yyyy"
+                            error={props.errors ? props.errors.endDate : false}
                         />
                     </Grid>
                 </MuiPickersUtilsProvider>
