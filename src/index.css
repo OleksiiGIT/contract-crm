@@ -31,3 +31,42 @@ hr.dividerMargin {
     display: flex;
     justify-content: center;
 }
+
+.ContractNavigation {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ContractNavigation button, .ContractNavigation .setStatus {
+    margin: 0 20px;
+}
+
+.ContractNavigation .setStatus {
+    width: 200px;
+}
+
+.UploadFileItem {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.UploadFileItem button {
+    margin-right: 50px;
+}
+
+.UploadFiles .moreUpload {
+    margin-top: 70px;
+}
+
+.UploadFileItem h2 {
+    width: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.UploadFileItem h2 button {
+    margin: 0;
+}

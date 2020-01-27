@@ -7,19 +7,26 @@ import Collapse from "@material-ui/core/Collapse";
 import {ExpandLess, ExpandMore} from "@material-ui/icons";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
+import Fab from "@material-ui/core/Fab";
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon  from '@material-ui/icons/Delete';
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Switch from "@material-ui/core/Switch";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 class Contract extends React.Component {
 
     state = {
-        open: false
+        open: false,
+        checked: false
     }
 
-    handleClick() {
-        console.log(this)
-        this.setState({
-            open: !this.state.open
-        })
-    }
+    handleClick() { this.setState({ open: !this.state.open }) }
+
+    handleChange() { this.setState({checked: !this.state.checked}) }
 
     render() {
         const {id} = this.props.match.params;
@@ -33,11 +40,11 @@ class Contract extends React.Component {
                     Тип договора - двусторонний
                 </Typography>
                 <Divider className="dividerMargin"/>
-                {/*<h3>Срок действия договора 1 год (осталось 43 дня)</h3>*/}
-                {/*<p>12 Мар, 2019 - 14 Мар, 2020</p>*/}
-                {/*<h5>Тип договора - двусторонний</h5>*/}
                 <Typography align="center" variant="h5" component="h5">
                     Срок действия договора 1 год (осталось 43 дня)
+                </Typography>
+                <Typography align="center" variant="h6" component="h6">
+                    Дата подписания - 24 Мар, 2019
                 </Typography>
                 <Typography align="center" variant="h6" component="h6">
                     12 Мар, 2019 - 14 Мар, 2020
@@ -125,10 +132,42 @@ class Contract extends React.Component {
                                 <ListItem button>
                                     <ListItemText primary="Декабрь" />
                                 </ListItem>
-
                             </List>
                         </Collapse>
                     </List>
+                </div>
+                <div className="ContractNavigation">
+                    <FormControlLabel
+                        control={
+                            <Switch
+                                checked={this.state.checked}
+                                onChange={this.handleChange.bind(this)}
+                                inputProps={{ 'aria-label': 'secondary checkbox' }}
+                            />
+                        }
+                        label="Вернулся с подписью контрагента"
+                    />
+                    <div className="RightSideControls">
+                        <FormControl className="setStatus">
+                            <InputLabel id="demo-simple-select-label">Статус</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                            >
+                                <MenuItem value={10}>Активный</MenuItem>
+                                <MenuItem value={0}>Деактивирован</MenuItem>
+                                <MenuItem value={20}>Ожидает подтверждения</MenuItem>
+                                <MenuItem value={30}>Закончен</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <Fab color="primary" aria-label="add">
+                            <EditIcon />
+                        </Fab>
+                        <Fab variant="extended" color="secondary">
+                            <DeleteIcon/>
+                            Удалить
+                        </Fab>
+                    </div>
                 </div>
             </div>
         )

@@ -13,6 +13,8 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import {NavLink} from 'react-router-dom'
 import ListIcon from '@material-ui/icons/List';
 import Divider from '@material-ui/core/Divider';
+import SpeakerNotesOutlinedIcon from '@material-ui/icons/SpeakerNotesOutlined';
+import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -49,7 +51,7 @@ export default function MainListItems(props) {
             <Divider/>
             <ListItem button onClick={handleClick}>
                 <ListItemIcon>
-                    <InboxIcon />
+                    <HomeOutlinedIcon />
                 </ListItemIcon>
                 <ListItemText primary="Договора" />
                 {open ? <ExpandLess /> : <ExpandMore />}
@@ -80,6 +82,18 @@ export default function MainListItems(props) {
                     </NavLink>
                 </List>
             </Collapse>
+            <ListItem button onClick={handleClick}>
+                <ListItemIcon>
+                    <SpeakerNotesOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Уведомления" />
+            </ListItem>
+            <ListItem button onClick={handleClick}>
+                <ListItemIcon>
+                    <InboxIcon />
+                </ListItemIcon>
+                <ListItemText primary="Архив" />
+            </ListItem>
         </List>
     );
 }
