@@ -16,12 +16,17 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import {api} from "../settings";
 
 class Contract extends React.Component {
 
     state = {
         open: false,
         checked: false
+    }
+
+    componentDidMount() {
+        fetch(api + 'contracts').then(response => console.log(response));
     }
 
     handleClick() { this.setState({ open: !this.state.open }) }

@@ -70,3 +70,10 @@ hr.dividerMargin {
 .UploadFileItem h2 button {
     margin: 0;
 }
+
+.conformationForm {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 50px 0;
+}

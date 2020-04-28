@@ -35,6 +35,8 @@ export default function AddStepper() {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     const [contractData, setContractData] = React.useState({
+        name: 'Договор №312', // должен подгружатся последний возможный номер и после ввода проверятся на повторение в
+        // БД и выводит сообщение, что такой номер уже есть, но это не ошибка
         contrAgent1: '',
         contrAgent2: '',
         type: '',
@@ -75,6 +77,12 @@ export default function AddStepper() {
 
     const handleSetFormData = (info, name) => {
         switch (name) {
+            case 'name':
+                setContractData({
+                    ...contractData,
+                    contrAgent1: info
+                })
+                break;
             case 'contrAgent1':
                 setContractData({
                     ...contractData,
@@ -125,7 +133,7 @@ export default function AddStepper() {
             case 1:
                 return <FileUpload />
             case 2:
-                return <ConfirmAddForm />
+                return <ConfirmAddForm data={contractData} />
             default:
                 return <h1>Something was wrong!!!</h1>;
         }

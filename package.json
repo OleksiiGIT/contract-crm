@@ -1,4 +1,5 @@
 {
+  "homepage": "https://oleksiigit.github.io/contract-crm/",
   "name": "contract_crm",
   "version": "0.1.0",
   "private": true,
@@ -18,7 +19,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test q",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -37,6 +39,7 @@
   },
   "devDependencies": {
     "@material-ui/icons": "^4.5.1",
-    "date-fns": "^2.0.0-beta.5"
+    "date-fns": "^2.0.0-beta.5",
+    "gh-pages": "^2.2.0"
   }
 }

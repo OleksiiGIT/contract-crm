@@ -21,6 +21,7 @@ const AddFormFields = (props) => {
 
     return (
         <div className="FormAddContract">
+            <TextField id="name" label="Название договора" value={props.data.name} error={props.errors ? props.errors.name : false} onChange={handleChange} />
             <TextField id="contrAgent1" label="Контр-агент 1" value={props.data.contrAgent1} error={props.errors ? props.errors.contrAgent1 : false} onChange={handleChange} />
             <TextField id="contrAgent2" label="Контр-агент 2" value={props.data.contrAgent2} error={props.errors ? props.errors.contrAgent2 : false} onChange={handleChange}/>
             <TextField id="type" label="Тип договора" value={props.data.type} error={props.errors ? props.errors.type : false}  onChange={handleChange}/>
